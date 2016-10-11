@@ -1,4 +1,4 @@
-# coding: utf -8
+# coding: utf-8
 
 import requests
 import os
@@ -8,6 +8,7 @@ Setup environment for run test
 """
 
 TMP_FOLDER = os.sep.join([os.getcwd(), 'install'])
+
 
 def head():
     """Print head"""
