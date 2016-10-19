@@ -7,7 +7,6 @@ import subprocess
 import shutil
 import sys
 import zipfile
-import argparse
 
 """
 Setup environment for run test
