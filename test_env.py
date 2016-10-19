@@ -128,6 +128,12 @@ def copy_chromedriver():
     zipfile.ZipFile(os.path.join(TMP_FOLDER, 'chromedriver_win32.zip')).extractall(path=os.path.join(exec_dir, 'bin'))
 
 
+def add_arguments():
+    """Add arguments"""
+
+    pass
+
+
 def main():
     """Common algorithm"""
     if not os.path.exists(TMP_FOLDER):
