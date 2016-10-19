@@ -1,12 +1,13 @@
 # coding: utf-8
 
-import requests
+import urllib.request as request
 import os
 import json
 import subprocess
 import shutil
 import sys
 import zipfile
+import argparse
 
 """
 Setup environment for run test
@@ -37,19 +38,15 @@ def svn_checkout(url, path):
     """Call svn checkout"""
     user = config()['SVN_USERNAME']
     password = config()['SVN_PASSWORD']
-    p = subprocess.Popen(['svn', 'co', url, path, '--username', user, '--password', password])
-    stdout, stderr = p.communicate()
+    exit_code = subprocess.Popen(['svn', 'co', url, path, '--username', user, '--password', password]).wait()
+    if exit_code != 0:
+        raise Exception('Don\'t get data from repository')
 
 
 def download_file(url, file_name):
     """Download file from remote host"""
 
-    r = requests.get(url=url, stream=True)
-    if r.ok:
-        with open(os.path.join(TMP_FOLDER, file_name), 'wb') as f:
-            f.write(r.content)
-    else:
-        r.raise_for_status()
+    request.urlretrieve(url=url, filename=os.path.join(TMP_FOLDER, file_name))
 
 
 def config():
@@ -105,6 +102,9 @@ def get_genie_tests():
 def install_lib():
     """Install lib's through pip"""
 
+    user = config()['SVN_USERNAME']
+    password = config()['SVN_PASSWORD']
+    os.environ['HTTP_PROXY'] = 'http://{}:{}@ias.corp.tensor.ru:8080'.format(user, password)
     p = subprocess.Popen(['pip', 'install', '-r', 'requirement.txt'])
     p.communicate()
 
