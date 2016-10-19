@@ -131,11 +131,21 @@ def copy_chromedriver():
 def add_arguments():
     """Add arguments"""
 
-    pass
+    parg = argparse.ArgumentParser()
+    parg.add_argument('-c', '--chromedriver', action='store', dest='', help='Version chromedriver')
+    parg.add_argument('-s', '--standalone-server', dest='', help='Version standalone-selenium-server')
+    parg.add_argument('-u', '--svn-user', dest='', help='SVN username')
+    parg.add_argument('-p', '--svn-password', dest='', help='SVN password')
+    parg.add_argument('-wg', '--genie', dest='', help='Version genie')
+    parg.add_argument('-atf', '--atf', dest='', help='Version atf')
+
+    return parg
 
 
 def main():
     """Common algorithm"""
+    args = add_arguments()
+    args.parse_known_args()
     if not os.path.exists(TMP_FOLDER):
         print('[*] create tmp folder: ', TMP_FOLDER)
         os.mkdir(TMP_FOLDER)
