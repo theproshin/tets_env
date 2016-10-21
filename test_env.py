@@ -7,6 +7,7 @@ import shutil
 import sys
 import zipfile
 import argparse
+from time import sleep
 
 """
 Setup environment for run test
@@ -127,6 +128,20 @@ def add_arguments():
     parg.add_argument('-atf', help='Version atf')
 
     return parg
+
+
+def progressbar():
+    """View progressbar"""
+
+    ends = 50
+
+    for i in range(ends):
+        sys.stdout.write(u'\001b[100D' + '%s%%' % (i + 1))
+        sys.stdout.flush()
+        sleep(0.1)
+        if i == ends-1:
+            sys.stdout.write('u\001b[100D' + '[ OK ]')
+            sys.stdout.flush()
 
 
 def main():
