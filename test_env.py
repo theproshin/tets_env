@@ -6,6 +6,7 @@ import subprocess
 import shutil
 import sys
 import zipfile
+import argparse
 
 """
 Setup environment for run test
@@ -89,7 +90,8 @@ def install_lib(user, password):
     """Install lib's through pip"""
 
     os.environ['HTTP_PROXY'] = 'http://{}:{}@ias.corp.tensor.ru:8080'.format(user, password)
-    exit_code = subprocess.Popen(['pip', 'install', '-r', 'requirement.txt', '-U', '--disable-pip-version-check']).wait()
+    p = subprocess.Popen(['pip', 'install', '-r', 'requirement.txt', '-U', '--disable-pip-version-check'])
+    exit_code = p.wait()
     if exit_code != 0:
         raise Exception('Don\'t install packet from pip')
 
