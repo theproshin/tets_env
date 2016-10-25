@@ -130,12 +130,12 @@ def add_arguments():
     """Add arguments"""
 
     parg = argparse.ArgumentParser()
-    parg.add_argument('-cd', help='Version chromedriver')
-    parg.add_argument('-ss', help='Version standalone-selenium-server')
-    parg.add_argument('-u', help='SVN username')
-    parg.add_argument('-p', help='SVN password')
-    parg.add_argument('-wg', help='Version genie')
-    parg.add_argument('-atf', help='Version atf')
+    parg.add_argument('-cd', required=True, help='Version chromedriver')
+    parg.add_argument('-ss', required=True, help='Version standalone-selenium-server')
+    parg.add_argument('-u', required=True, help='SVN username')
+    parg.add_argument('-p', required=True, help='SVN password')
+    parg.add_argument('-wg', required=True, help='Version genie')
+    parg.add_argument('-atf', required=True, help='Version atf')
 
     return parg
 
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     args = add_arguments()
     p = args.parse_args()
     if not os.path.exists(TMP_FOLDER):
-        print('[*] create tmp folder: ', TMP_FOLDER)
+        print(' [*] create tmp folder: ', TMP_FOLDER)
         os.mkdir(TMP_FOLDER)
 
     stop = False
